@@ -3,6 +3,7 @@ plugins {
 	id("org.springframework.boot") version "3.3.3"
 	id("io.spring.dependency-management") version "1.1.6"
 	id("jacoco")
+	id("io.freefair.lombok") version "8.10"
 }
 
 group = "no.brg.hvl.dat250"
