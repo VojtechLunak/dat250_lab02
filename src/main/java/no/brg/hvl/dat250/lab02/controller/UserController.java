@@ -23,10 +23,9 @@ public class UserController {
     }
 
 
-
     @PutMapping("/{username}/polls/{pollId}/votes/{voteId}/voteoptions/{caption}")
     public void changeVote(@PathVariable("username") String username, @PathVariable("pollId") Integer pollId, @PathVariable("voteId") Integer voteId, @PathVariable("caption") String caption) {
-        domainManager.changeVote(username, voteId, caption);//domainManager.getUser(username).changeVoteOption(voteId, option);
+        domainManager.changeVote(username, voteId, pollId, caption);
     }
 
     @GetMapping("/{username}")
@@ -43,5 +42,10 @@ public class UserController {
     @PostMapping("/{username}/polls/{pollId}/voteoptions/{voteOptionId}")
     public void castVote(@RequestBody Vote vote, @PathVariable String username, @PathVariable Integer pollId, @PathVariable String voteOptionId) {
         domainManager.castVote(vote, username, pollId, voteOptionId);
+    }
+
+    @DeleteMapping("/{username}")
+    public void deleteUser(@PathVariable("username") String username) {
+        domainManager.deleteUser(username);
     }
 }

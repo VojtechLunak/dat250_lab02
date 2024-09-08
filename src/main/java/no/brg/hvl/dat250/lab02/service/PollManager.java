@@ -94,7 +94,22 @@ public class PollManager {
                 .collect(Collectors.toSet());
     }
 
-    public void changeVote(String username, Integer voteId, String caption) {
-        getUser(username).changeVoteOption(voteId, getVoteOptions().stream().filter(v -> v.getCaption().equals(caption)).findFirst().orElse(null));
+    public Set<VoteOption> getVoteOptions(Integer pollId) {
+        return getPoll(pollId).getVoteOptions();
+    }
+
+
+    public void changeVote(String username, Integer voteId, Integer pollId, String caption) {
+        getUser(username).changeVoteOption(voteId, getVoteOptions(pollId).stream().filter(v -> v.getCaption().equals(caption)).findFirst().orElse(null));
+    }
+
+    public void deleteUser(String username) {
+        users.removeIf(user -> user.getUsername().equals(username));
+    }
+
+    public void updatePoll(Poll poll) {
+        getPolls().stream().filter(p -> p.getId().equals(poll.getId())).findFirst().ifPresent(p -> {
+            p = poll;
+        });
     }
 }

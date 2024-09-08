@@ -98,12 +98,12 @@ class Lab02ApplicationTests {
 		Vote newVote = new Vote();
 		newVote.setUsername(user.getUsername());
 		newVote.setPollId(poll.getId());
-		pollManager.castVote(newVote, voteOption1.getId());
+		newVote = pollManager.castVote(newVote, user.getUsername(), poll.getId(), voteOption1.getCaption());
 
 		assertEquals(user.getVotes().size(), 1);
-		assertEquals(voteOption1, createdVote.getVoteOption());
+		assertEquals(voteOption1, newVote.getVoteOption());
 		//assertEquals(user, pollManager.getUser(user.getUsername()).getV);
-		assertTrue(user.getVotes().contains(createdVote));
+		assertTrue(user.getVotes().contains(newVote));
 	}
 
 	@Test
@@ -133,11 +133,11 @@ class Lab02ApplicationTests {
 		String username2 = "test2";
 		pollManager.addUser(new User(username2, "test2"));
 
-		Vote createdVote = pollManager.castVote(username2, poll.getId(), voteOption2.getCaption());
+		Vote createdVote = pollManager.castVote(new Vote(), username2, poll.getId(), voteOption2.getCaption());
 
 		List<Vote> user2votes = pollManager.getUser(username2).getVotes();
 
-		assertEquals(user2votes.size(), 1);
+		assertEquals(1, user2votes.size());
 		assertEquals(voteOption2, user2votes.get(0).getVoteOption());
 		assertNotEquals(user2votes.get(0).getVoteOption(), voteOption1);
 

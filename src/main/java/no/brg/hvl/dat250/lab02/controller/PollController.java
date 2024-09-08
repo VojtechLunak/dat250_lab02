@@ -23,4 +23,14 @@ public class PollController {
     public void addPoll(@RequestBody Poll poll) {
         domainManager.addPoll(poll);
     }
+
+    @PutMapping("/{pollId}")
+    public void updatePoll(@PathVariable("pollId") Integer pollId, @RequestBody Poll poll) {
+        domainManager.updatePoll(poll);
+    }
+
+    @DeleteMapping("/{pollId}")
+    public void deletePoll(@PathVariable("pollId") Integer pollId) {
+        domainManager.deletePoll(pollId);
+    }
 }
