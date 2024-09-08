@@ -36,7 +36,8 @@ class Lab02ApplicationTests {
 
 		poll = new Poll();
 		poll.setQuestion("Test question");
-		pollManager.addPoll(poll, user.getUsername());
+		poll.setCreatorUsername(user.getUsername());
+		pollManager.addPoll(poll);
 
 		voteOption1 = new VoteOption();
 		voteOption1.setCaption("Test option 1");
@@ -75,7 +76,8 @@ class Lab02ApplicationTests {
 		Poll newPoll = new Poll();
 		String newQuestion = "Question 2";
 		newPoll.setQuestion(newQuestion);
-		Integer newPollId = pollManager.addPoll(newPoll, user.getUsername());
+		newPoll.setCreatorUsername(user.getUsername());
+		Integer newPollId = pollManager.addPoll(newPoll);
 		assertNotNull(pollManager.getPoll(newPollId));
 	}
 
@@ -93,9 +95,12 @@ class Lab02ApplicationTests {
 
 	@Test
 	public void testCastVote() {
-		Vote createdVote = pollManager.castVote(user.getUsername(), poll.getId(), voteOption1.getCaption());
+		Vote newVote = new Vote();
+		newVote.setUsername(user.getUsername());
+		newVote.setPollId(poll.getId());
+		pollManager.castVote(newVote, voteOption1.getId());
 
-		assertNotNull(createdVote);
+		assertEquals(user.getVotes().size(), 1);
 		assertEquals(voteOption1, createdVote.getVoteOption());
 		//assertEquals(user, pollManager.getUser(user.getUsername()).getV);
 		assertTrue(user.getVotes().contains(createdVote));
@@ -117,7 +122,7 @@ class Lab02ApplicationTests {
 
 	@Test
 	public void testDeletePoll() {
-		Integer newPollId = pollManager.addPoll(new Poll(), user.getUsername());
+		Integer newPollId = pollManager.addPoll(new Poll());
 
 		pollManager.deletePoll(newPollId);
 		assertNull(pollManager.getPoll(2));

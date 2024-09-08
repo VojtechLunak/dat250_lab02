@@ -12,6 +12,8 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Vote {
     private Integer id;
+    private Integer pollId;
+    private String username;
     private Instant publishedAt;
     private VoteOption voteOption;
 
@@ -22,5 +24,9 @@ public class Vote {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getVoteOptionCaption() {
+       return voteOption.getCaption();
     }
 }

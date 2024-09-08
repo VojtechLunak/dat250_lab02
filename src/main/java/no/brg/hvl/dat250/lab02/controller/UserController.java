@@ -1,6 +1,8 @@
 package no.brg.hvl.dat250.lab02.controller;
 
+import no.brg.hvl.dat250.lab02.controller.wrapper.AddVoteRequestWrapper;
 import no.brg.hvl.dat250.lab02.model.User;
+import no.brg.hvl.dat250.lab02.model.Vote;
 import no.brg.hvl.dat250.lab02.model.VoteOption;
 import no.brg.hvl.dat250.lab02.service.PollManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +22,11 @@ public class UserController {
         return domainManager.getUsers();
     }
 
-    @PostMapping("/{username}/polls/{pollId}/voteoptions/{caption}")
-    public void castVote(@PathVariable("username") String username, @PathVariable("pollId") Integer pollId, @PathVariable("caption") String caption) {
-        domainManager.castVote(username, pollId, caption);
-    }
+
 
     @PutMapping("/{username}/polls/{pollId}/votes/{voteId}/voteoptions/{caption}")
     public void changeVote(@PathVariable("username") String username, @PathVariable("pollId") Integer pollId, @PathVariable("voteId") Integer voteId, @PathVariable("caption") String caption) {
-        VoteOption option = domainManager.getVoteOptions().stream().filter(v -> v.getCaption().equals(caption)).findFirst().orElse(null);
-        domainManager.getUser(username).changeVoteOption(voteId, option);
+        domainManager.changeVote(username, voteId, caption);//domainManager.getUser(username).changeVoteOption(voteId, option);
     }
 
     @GetMapping("/{username}")
@@ -40,5 +38,10 @@ public class UserController {
     @PostMapping
     public void addUser(@RequestBody User user) {
         domainManager.addUser(user);
+    }
+
+    @PostMapping("/{username}/polls/{pollId}/voteoptions/{voteOptionId}")
+    public void castVote(@RequestBody Vote vote, @PathVariable String username, @PathVariable Integer pollId, @PathVariable String voteOptionId) {
+        domainManager.castVote(vote, username, pollId, voteOptionId);
     }
 }

@@ -1,5 +1,6 @@
 package no.brg.hvl.dat250.lab02.controller;
 
+import no.brg.hvl.dat250.lab02.controller.wrapper.AddVoteRequestWrapper;
 import no.brg.hvl.dat250.lab02.model.Vote;
 import no.brg.hvl.dat250.lab02.service.PollManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,5 @@ public class VoteController {
     @GetMapping
     public Set<Vote> getAllVotes() {
         return domainManager.getVotes();
-    }
-
-    @PostMapping
-    public void addVote(@RequestBody Vote vote) {
-        //domainManager.add(vote);
     }
 }

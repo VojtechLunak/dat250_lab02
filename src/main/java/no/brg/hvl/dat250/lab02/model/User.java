@@ -26,8 +26,7 @@ public class User {
         polls.add(poll);
     }
 
-    public void castVote(VoteOption voteOption) {
-        Vote vote = new Vote();
+    public void castVote(Vote vote, VoteOption voteOption) {
         vote.setId(voteId);
         vote.setVoteOption(voteOption);
         votes.add(vote);
@@ -37,5 +36,12 @@ public class User {
         votes.stream().filter(v -> v.getId().equals(voteId)).findFirst().ifPresent(v -> {
             v.setVoteOption(voteOption);
         });
+    }
+
+    public Vote addVote(Vote vote) {
+        vote.setId(voteId);
+        votes.add(vote);
+        voteId++;
+        return vote;
     }
 }

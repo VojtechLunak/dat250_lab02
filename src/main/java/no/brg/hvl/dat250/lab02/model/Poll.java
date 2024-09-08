@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Poll {
     private Integer id;
+    private String creatorUsername;
     private String question;
     private Instant publishedAt;
     private Instant validUntil;
@@ -27,6 +28,12 @@ public class Poll {
     }
 
     public void addVoteOption(VoteOption voteOption) {
+        for (VoteOption option : voteOptions) {
+            if (option.getCaption().equals(voteOption.getCaption())) {
+                throw new IllegalArgumentException("A poll cannot have two options with the same caption. This is not a valid poll.");
+            }
+        }
+        voteOption.setId(id);
         voteOptions.add(voteOption);
     }
 }

@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class VoteOption {
+    private Integer pollId;
+    private Integer id;
     private String caption;
     private int presentationOrder;
 

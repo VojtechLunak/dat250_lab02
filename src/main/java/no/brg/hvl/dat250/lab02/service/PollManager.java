@@ -6,6 +6,7 @@ import no.brg.hvl.dat250.lab02.model.User;
 import no.brg.hvl.dat250.lab02.model.Vote;
 import no.brg.hvl.dat250.lab02.model.VoteOption;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,21 +27,25 @@ public class PollManager {
         return users.stream().filter(user -> user.getUsername().equals(username)).findFirst().orElse(null);
     }
 
-    public Vote castVote(String username, Integer pollId, String voteCaption) {
+    public Vote castVote(Vote vote, String username, Integer pollId, String voteOptionCaption) {
         Poll poll = getPolls().stream().filter(p -> p.getId().equals(pollId)).findFirst().orElse(null);
-        VoteOption option = poll.getVoteOptions().stream().filter(v -> v.getCaption().equals(voteCaption)).findFirst().orElse(null);
+        VoteOption option = poll.getVoteOptions().stream().filter(v -> v.getCaption().equals(voteOptionCaption)).findFirst().orElse(null);
 
-        users.stream().filter(user -> user.getUsername().equals(username)).findFirst().ifPresent(user -> {
-            user.castVote(option);
+        vote.setUsername(username);
+        vote.setPollId(pollId);
+        vote.setVoteOption(option);
+
+        users.stream().filter(user -> user.getUsername().equals(vote.getUsername())).findFirst().ifPresent(user -> {
+            user.addVote(vote);
         });
 
-        return getUser(username).getVotes().stream().filter(v -> v.getVoteOption().equals(option)).findFirst().orElse(null);
+        return getUser(vote.getUsername()).getVotes().stream().filter(v -> v.getPollId().equals(pollId)).findFirst().orElse(null);
     }
 
-    public Integer addPoll(Poll poll, String username) {
+    public Integer addPoll(Poll poll) {
         poll.setId(pollId);
         pollId++;
-        users.stream().filter(user -> user.getUsername().equals(username)).findFirst().ifPresent(user -> {
+        users.stream().filter(user -> user.getUsername().equals(poll.getCreatorUsername())).findFirst().ifPresent(user -> {
            user.addPoll(poll);
         });
         return poll.getId();
@@ -56,10 +61,10 @@ public class PollManager {
         return getPolls().stream().filter(p -> p.getId().equals(pollId)).findFirst().orElse(null);
     }
 
-    public void addVoteOption(VoteOption voteOption, String pollQuestion) {
+    public void addVoteOption(VoteOption voteOption) {
         users.stream().map(User::getPolls)
                 .flatMap(List::stream)
-                .filter(poll -> poll.getQuestion().equals(pollQuestion))
+                .filter(poll -> poll.getId().equals(voteOption.getPollId()))
                 .findFirst()
                 .ifPresent(poll -> poll.addVoteOption(voteOption));
     }
@@ -83,10 +88,13 @@ public class PollManager {
     }
 
     public Set<VoteOption> getVoteOptions() {
-        return users.stream()
-                .map(User::getVotes)
-                .flatMap(List::stream)
-                .map(Vote::getVoteOption)
+        return getPolls().stream()
+                .map(Poll::getVoteOptions)
+                .flatMap(Set::stream)
                 .collect(Collectors.toSet());
+    }
+
+    public void changeVote(String username, Integer voteId, String caption) {
+        getUser(username).changeVoteOption(voteId, getVoteOptions().stream().filter(v -> v.getCaption().equals(caption)).findFirst().orElse(null));
     }
 }

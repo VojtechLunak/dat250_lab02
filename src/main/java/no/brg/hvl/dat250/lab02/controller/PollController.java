@@ -19,8 +19,8 @@ public class PollController {
         return domainManager.getPolls();
     }
 
-    @PostMapping("/{username}")
-    public void addPoll(@RequestBody Poll poll, @PathVariable("username") String username) {
-        domainManager.addPoll(poll, username);
+    @PostMapping
+    public void addPoll(@RequestBody Poll poll) {
+        domainManager.addPoll(poll);
     }
 }

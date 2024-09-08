@@ -20,7 +20,7 @@ public class VoteOptionController {
     }
 
     @PostMapping
-    public void addVoteOption(@RequestBody VoteOption voteOption, @PathVariable("pollQuestion") String pollQuestion) {
-        domainManager.addVoteOption(voteOption, pollQuestion);
+    public void addVoteOption(@RequestBody VoteOption voteOption) {
+        domainManager.addVoteOption(voteOption);
     }
 }
