@@ -68,7 +68,7 @@ jobs:
           check_response "$response" 200
           
           # POST request
-          response=$(curl -s -w "\%{http_code}" -X POST "http://localhost:8080/voteoptions" -d '{"pollId": 1,"caption": "option1"}' -H "Content-Type: application/json")
+          response=$(curl -s -w "\n%{http_code}" -X POST "http://localhost:8080/voteoptions" -d '{"pollId": 1,"caption": "option1"}' -H "Content-Type: application/json")
           check_response "$response" 200
           
           # POST request
