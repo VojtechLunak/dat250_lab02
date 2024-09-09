@@ -40,6 +40,10 @@ jobs:
             local status_code=$(echo "$response" | grep HTTP | awk '{print $2}')
             local body=$(echo "$response" | tail -n 1)
 
+            echo "Response: $response"
+            echo "Status Code: $status_code"
+            echo "Body: $body"
+          
             if [ "$status_code" -ne "$expected_status" ]; then
               echo "Expected status $expected_status but got $status_code"
               exit 1
