@@ -1,0 +1,92 @@
+name: Run HTTP Requests on Push
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  run-http-requests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Start the application
+        run: |
+          nohup java -jar build/libs/*.jar &
+          sleep 20 # Wait for the application to start
+
+      - name: Run HTTP requests
+        run: |
+          check_response() {
+            local response="$1"
+            local expected_status="$2"
+            local expected_body="$3"
+
+            local status_code=$(echo "$response" | grep HTTP | awk '{print $2}')
+            local body=$(echo "$response" | tail -n 1)
+
+            if [ "$status_code" -ne "$expected_status" ]; then
+              echo "Expected status $expected_status but got $status_code"
+              exit 1
+            fi
+
+            if [ -n "$expected_body" ] && [ "$body" != "$expected_body" ]; then
+              echo "Expected body '$expected_body' but got '$body'"
+              exit 1
+            fi
+          }
+
+          # GET request
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X GET "http://localhost:8080/users")
+          check_response "$response" 200
+
+          # POST request
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X POST "http://localhost:8080/users" -d '{"username": "test1","email": "test1"}' -H "Content-Type: application/json")
+          check_response "$response" 200
+          
+          # POST request
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X POST "http://localhost:8080/polls" -d '{"question": "test1","creatorUsername": "test1"}' -H "Content-Type: application/json")
+          check_response "$response" 200
+          
+          # POST request
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X POST "http://localhost:8080/votepotions" -d '{"pollId": 1,"caption": "option1"}' -H "Content-Type: application/json")
+          check_response "$response" 200
+          
+          # POST request
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X POST "http://localhost:8080/votepotions" -d '{"pollId": 1,"caption": "option2"}' -H "Content-Type: application/json")
+          check_response "$response" 200
+          
+          # GET request
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X GET "http://localhost:8080/polls")
+          check_response "$response" 200 '[{"id": 1,"creatorUsername": "test1","question": "test1","publishedAt": null,"validUntil": null,"voteOptions": [{"pollId": 1,"id": 1,"caption": "option1","presentationOrder": 0},{"pollId": 1,"id": 1,"caption": "option2","presentationOrder": 0]}]'
+          
+          # POST request
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X POST "http://localhost:8080/users/test1/polls/1/voteoptions/option1" -H "Content-Type: application/json")
+          check_response "$response" 200
+          
+          # GET request
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X GET "http://localhost:8080/votes")
+          check_response "$response" 200
+          
+          # PUT request
+          response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X PUT "http://localhost:8080/users/test1/polls/1/votes/1/voteoptions/option2" -H "Content-Type: application/json")
+          check_response "$response" 200
+
+      - name: Stop the application
+        run: |
+          pkill -f 'java -jar'
