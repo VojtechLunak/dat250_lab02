@@ -14,10 +14,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-@NoArgsConstructor
 public class PollManager {
     private final Set<User> users = new HashSet<>();
     private Integer pollId = 1;
+
+    public PollManager() {
+        User user = new User("admin", "admin");
+        users.add(user);
+    }
 
     public void addUser(User user) {
         users.add(user);
@@ -87,6 +91,10 @@ public class PollManager {
                 .collect(Collectors.toSet());
     }
 
+    public Set<Vote> getVotesForUserInPoll(String username, Integer pollId) {
+        return getUser(username).getVotes().stream().filter(v -> v.getPollId().equals(pollId)).collect(Collectors.toSet());
+    }
+
     public Set<VoteOption> getVoteOptions() {
         return getPolls().stream()
                 .map(Poll::getVoteOptions)
@@ -111,5 +119,9 @@ public class PollManager {
         getPolls().stream().filter(p -> p.getId().equals(poll.getId())).findFirst().ifPresent(p -> {
             p = poll;
         });
+    }
+
+    public Set<Vote> getVotesForUser(String username) {
+        return new HashSet<>(getUser(username).getVotes());
     }
 }

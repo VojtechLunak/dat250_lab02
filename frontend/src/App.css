@@ -1,0 +1,26 @@
+.app-container {
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.main-page {
+  padding: 20px;
+}
+
+.create-poll, .vote-poll {
+  padding: 20px;
+}
+
+.poll-card {
+  transition: transform 0.2s;
+}
+
+.poll-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.poll-item {
+  margin-bottom: 20px;
+}

@@ -29,6 +29,7 @@ class Lab02ApplicationTests {
 	@BeforeEach
 	public void setUp() {
 		pollManager = new PollManager();
+		pollManager.deleteUser("admin");
 		// Create and add sample entities
 		user = new User();
 		user.setUsername("test1");

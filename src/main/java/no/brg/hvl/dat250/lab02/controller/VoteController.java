@@ -9,10 +9,21 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/votes")
+@CrossOrigin
 public class VoteController {
 
     @Autowired
     private PollManager domainManager;
+
+    @GetMapping("/{username}/{pollId}")
+    public Set<Vote> getVotes(@PathVariable("username") String username, @PathVariable("pollId") Integer pollId) {
+        return domainManager.getVotesForUserInPoll(username, pollId);
+    }
+
+    @GetMapping("/{username}")
+    public Set<Vote> getVotes(@PathVariable("username") String username) {
+        return domainManager.getVotesForUser(username);
+    }
 
     @GetMapping
     public Set<Vote> getAllVotes() {

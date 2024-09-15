@@ -1,0 +1,47 @@
+no main manifest attribute, in build/libs/lab02-0.0.1-SNAPSHOT-plain.jar
+no main manifest attribute, in build/libs/lab02-0.0.1-SNAPSHOT-plain.jar
+no main manifest attribute, in build/libs/lab02-0.0.1-SNAPSHOT-plain.jar
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.3)
+
+2024-09-09T10:42:56.769+02:00  INFO 769 --- [lab01] [           main] n.brg.hvl.dat250.lab02.Lab02Application  : Starting Lab02Application v0.0.1-SNAPSHOT using Java 21.0.4 with PID 769 (/Users/vojtechlunak/Projects/hvl/dat250/lab02/build/libs/lab02-0.0.1-SNAPSHOT.jar started by vojtechlunak in /Users/vojtechlunak/Projects/hvl/dat250/lab02)
+2024-09-09T10:42:56.789+02:00  INFO 769 --- [lab01] [           main] n.brg.hvl.dat250.lab02.Lab02Application  : No active profile set, falling back to 1 default profile: "default"
+2024-09-09T10:42:58.691+02:00  INFO 769 --- [lab01] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-09-09T10:42:58.724+02:00  INFO 769 --- [lab01] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-09T10:42:58.724+02:00  INFO 769 --- [lab01] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-09-09T10:42:58.797+02:00  INFO 769 --- [lab01] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-09T10:42:58.799+02:00  INFO 769 --- [lab01] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1884 ms
+2024-09-09T10:42:59.529+02:00  INFO 769 --- [lab01] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-09-09T10:42:59.564+02:00  INFO 769 --- [lab01] [           main] n.brg.hvl.dat250.lab02.Lab02Application  : Started Lab02Application in 3.89 seconds (process running for 4.956)
+2024-09-09T10:42:59.713+02:00  INFO 769 --- [lab01] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-09T10:42:59.714+02:00  INFO 769 --- [lab01] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-09T10:42:59.715+02:00  INFO 769 --- [lab01] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.3)
+
+2024-09-09T10:43:19.200+02:00  INFO 886 --- [lab01] [           main] n.brg.hvl.dat250.lab02.Lab02Application  : Starting Lab02Application v0.0.1-SNAPSHOT using Java 21.0.4 with PID 886 (/Users/vojtechlunak/Projects/hvl/dat250/lab02/build/libs/lab02-0.0.1-SNAPSHOT.jar started by vojtechlunak in /Users/vojtechlunak/Projects/hvl/dat250/lab02)
+2024-09-09T10:43:19.206+02:00  INFO 886 --- [lab01] [           main] n.brg.hvl.dat250.lab02.Lab02Application  : No active profile set, falling back to 1 default profile: "default"
+2024-09-09T10:43:21.022+02:00  INFO 886 --- [lab01] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-09-09T10:43:21.075+02:00  INFO 886 --- [lab01] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-09-09T10:43:21.075+02:00  INFO 886 --- [lab01] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-09-09T10:43:21.139+02:00  INFO 886 --- [lab01] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-09-09T10:43:21.141+02:00  INFO 886 --- [lab01] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1809 ms
+2024-09-09T10:43:21.791+02:00  INFO 886 --- [lab01] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-09-09T10:43:21.815+02:00  INFO 886 --- [lab01] [           main] n.brg.hvl.dat250.lab02.Lab02Application  : Started Lab02Application in 3.516 seconds (process running for 4.514)
+2024-09-09T10:43:22.406+02:00  INFO 886 --- [lab01] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-09T10:43:22.407+02:00  INFO 886 --- [lab01] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-09-09T10:43:22.409+02:00  INFO 886 --- [lab01] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms

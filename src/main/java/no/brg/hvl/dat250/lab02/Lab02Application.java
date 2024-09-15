@@ -9,15 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class Lab02Application {
-	private PollManager domainManager;
-
 	public static void main(String[] args) {
 		SpringApplication.run(Lab02Application.class, args);
-	}
-
-
-	@GetMapping("/")
-	public String hello() {
-		return "Hello world!";
 	}
 }

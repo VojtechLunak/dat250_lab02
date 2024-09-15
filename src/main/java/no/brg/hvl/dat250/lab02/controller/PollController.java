@@ -9,6 +9,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/polls")
+@CrossOrigin
 public class PollController {
 
     @Autowired
@@ -20,8 +21,8 @@ public class PollController {
     }
 
     @PostMapping
-    public void addPoll(@RequestBody Poll poll) {
-        domainManager.addPoll(poll);
+    public Integer addPoll(@RequestBody Poll poll) {
+        return domainManager.addPoll(poll);
     }
 
     @PutMapping("/{pollId}")
